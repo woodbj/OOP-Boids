@@ -7,6 +7,7 @@
 #include <ctime>
 #include <cmath>
 #include "Boid.h"
+#include "VMath.h"
 
 using sf::Vector2f;
 using sf::Vector2u;
