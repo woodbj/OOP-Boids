@@ -7,21 +7,20 @@ PreyBoid::PreyBoid(int id, sf::RenderWindow *window)
     // initialise variables
     _id = id;
     _window = window;
-    _width = _window->getSize().x;
-    _height = _window->getSize().y;
+    _windowDimensions = _window->getSize();
 
     // initialise position
-    _pos.x = rand() % _width;
-    _pos.y = rand() % _height;
+    _pos.x = rand() % _windowDimensions.x;
+    _pos.y = rand() % _windowDimensions.y;
     _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     float velocity = rand() / (1.f * RAND_MAX);
     scaleVector(&_dir, velocity * _maxVel);
 
     // initialise boundaries
-    _mr = _width - _ml;
+    _mr = _windowDimensions.x - _ml;
     _mt = _ml;
-    _mb = _height - _ml;
+    _mb = _windowDimensions.y - _ml;
 
     // give a shape
     _sprite = sf::CircleShape(_boidSize);
@@ -109,20 +108,6 @@ void PreyBoid::cohesion(Vector2f *positions, int size)
 
 void PreyBoid::margins()
 {
-    // Vector2f tl(_ml, _mt);
-    // Vector2f tr(_mr, _mt);
-    // Vector2f bl(_ml, _mb);
-    // Vector2f br(_mr, _mb);
-
-    // sf::VertexArray lines(sf::LinesStrip, 5);
-    // lines[0].position = tl;
-    // lines[1].position = tr;
-    // lines[2].position = br;
-    // lines[3].position = bl;
-    // lines[4].position = tl;
-
-    // _window->draw(lines);
-
     if (_pos.x < _ml)
         _dir.x += _tf;
     if (_pos.x > _mr)
@@ -142,14 +127,14 @@ void PreyBoid::scaleVector(Vector2f *v, float scale)
 void PreyBoid::constrainPosition()
 {
 
-    if (_pos.x > _width)
-        _pos.x -= _width;
-    if (_pos.y > _height)
-        _pos.y -= _height;
+    if (_pos.x > _windowDimensions.x)
+        _pos.x -= _windowDimensions.x;
+    if (_pos.y > _windowDimensions.y)
+        _pos.y -= _windowDimensions.y;
     if (_pos.x < 0)
-        _pos.x += _width;
+        _pos.x += _windowDimensions.x;
     if (_pos.y < 0)
-        _pos.y += _height;
+        _pos.y += _windowDimensions.y;
 }
 
 void PreyBoid::draw()
