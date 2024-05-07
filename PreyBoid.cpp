@@ -139,6 +139,6 @@ void PreyBoid::constrainPosition()
 
 void PreyBoid::draw()
 {
-    _sprite.setPosition(_pos.x, _pos.y);
+    _sprite.setPosition(_pos);
     _window->draw(_sprite);
 }

@@ -21,15 +21,15 @@ private:
     sf::CircleShape _sprite;
     sf::RenderWindow *_window;
     int _id;
-    float _maxVel = 3;
+    float _maxVel = 1;
     float _boidSize = 5;
     // Separation
     bool _separate = true;
     float _sr = 5;      // separation range
-    float _sf = 0.005f; // separation factor
+    float _sf = 0.0005f; // separation factor
     // Alignment
     bool _align = true;
-    float _ar = 350.f; // alignment range
+    float _ar = 200.f; // alignment range
     float _af = 0.02f; // alignment factor
     // Cohesion
     bool _cohere = true;
