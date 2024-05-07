@@ -38,8 +38,6 @@ Flock::Flock(FlockConfig fc, sf::RenderWindow *window)
     {
         _boids[i] = new PreyBoid(i, window);
     }
-
-    
 }
 
 Flock::~Flock()

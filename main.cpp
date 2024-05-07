@@ -27,9 +27,6 @@ int main()
                 window.close();
         }
 
-
-
-
         window.clear();
         flock->update();
         window.display();

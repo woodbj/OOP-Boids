@@ -21,11 +21,7 @@ public:
     Flock(FlockConfig, sf::RenderWindow *);
     ~Flock();
     void update();
-    void updateOld();
     Boid* getBoid(int index);
-    void toggleAlignment();
-    void toggleSeparation();
-    void toggleCohesion();
 };
 
 
