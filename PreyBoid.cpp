@@ -15,7 +15,7 @@ PreyBoid::PreyBoid(int id, sf::RenderWindow *window)
     _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     float velocity = rand() / (1.f * RAND_MAX);
-    scaleVector(&_dir, velocity * _maxVel);
+    VMath::scaleVector(&_dir, velocity * _maxVel);
 
     // initialise boundaries
     _mr = _windowDimensions.x - _ml;
@@ -24,11 +24,6 @@ PreyBoid::PreyBoid(int id, sf::RenderWindow *window)
 
     // give a shape
     _sprite = sf::CircleShape(_boidSize);
-}
-
-float PreyBoid::getMagnitude(Vector2f v)
-{
-    return sqrt(v.x * v.x + v.y * v.y);
 }
 
 void PreyBoid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, int size)
@@ -41,7 +36,7 @@ void PreyBoid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, i
 
     margins();
 
-    scaleVector(&_dir, _maxVel);
+    VMath::scaleVector(&_dir, _maxVel);
 
     _pos += _dir;
 
@@ -53,7 +48,7 @@ void PreyBoid::separation(Vector2f *positions, int size)
     Vector2f close;
     for (int i = 0; i < size; i++)
     {
-        if (getMagnitude(_pos - positions[i]) < _sr)
+        if (VMath::length(_pos - positions[i]) < _sr)
         {
             close += _pos - positions[i];
         }
@@ -70,7 +65,7 @@ void PreyBoid::alignment(Vector2f *positions, Vector2f *vel, int size)
 
     for (int i = 0; i < size; i++)
     {
-        if (getMagnitude(_pos - positions[i]) < _ar)
+        if (VMath::length(_pos - positions[i]) < _ar)
         {
             avgVel += vel[i];
             neighbours++;
@@ -93,7 +88,7 @@ void PreyBoid::cohesion(Vector2f *positions, int size)
 
     for (int i = 0; i < size; i++)
     {
-        if (getMagnitude(_pos - positions[i]) < _cr)
+        if (VMath::length(_pos - positions[i]) < _cr)
         {
             avgPos += positions[i];
             neighbours++;
@@ -116,12 +111,6 @@ void PreyBoid::margins()
         _dir.y -= _tf;
     if (_pos.y < _mt)
         _dir.y += _tf;
-}
-
-void PreyBoid::scaleVector(Vector2f *v, float scale)
-{
-    *v /= (float)sqrt(v->x * v->x + v->y * v->y);
-    *v *= scale;
 }
 
 void PreyBoid::constrainPosition()
