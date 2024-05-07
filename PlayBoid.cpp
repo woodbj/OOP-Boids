@@ -13,7 +13,7 @@ PlayBoid::PlayBoid(int id, sf::RenderWindow *window)
     _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     float velocity = rand() / (1.f * RAND_MAX);
-    VMath::scaleVector(&_dir, velocity * _maxVel);
+    VMath::scale(&_dir, velocity * _maxVel);
 
     // initialise boundaries
     _mr = _windowDimensions.x - _ml;

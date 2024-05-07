@@ -1,10 +1,15 @@
 #include "Flock.h"
 
-Boid *Flock::getBoid(int index)
+Flock::Flock(FlockConfig fc, sf::RenderWindow *window)
 {
-    if (index >= _size)
-        return nullptr;
-    return _boids[index];
+    _size = fc.playCount + fc.predCount + fc.preyCount;
+    _window = window;
+    _boids = new Boid *[_size];
+
+    for (int i = 0; i < fc.preyCount; i++)
+    {
+        _boids[i] = new PreyBoid(i, window);
+    }
 }
 
 void Flock::update()
@@ -28,17 +33,7 @@ void Flock::update()
     }
 }
 
-Flock::Flock(FlockConfig fc, sf::RenderWindow *window)
-{
-    _size = fc.playCount + fc.predCount + fc.preyCount;
-    _window = window;
-    _boids = new Boid *[_size];
 
-    for (int i = 0; i < fc.preyCount; i++)
-    {
-        _boids[i] = new PreyBoid(i, window);
-    }
-}
 
 Flock::~Flock()
 {

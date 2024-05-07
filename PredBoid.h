@@ -32,9 +32,7 @@ private:
     float _mb;
     float _tf = 0.2; // turn factor
 
-    void scaleVector(Vector2f *, float scale);
     void constrainPosition();
-    float getMagnitude(Vector2f);
 
 public:
     PredBoid(int, sf::RenderWindow *);

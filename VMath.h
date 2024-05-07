@@ -8,7 +8,7 @@ using sf::Vector2f;
 namespace VMath
 {
     float length(Vector2f vector);
-    void scaleVector(Vector2f *vector, float scale);
+    void scale(Vector2f *vector, float scale);
 
 };
 

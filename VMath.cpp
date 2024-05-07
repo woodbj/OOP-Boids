@@ -5,7 +5,7 @@
         return sqrt(vector.x * vector.x + vector.y * vector.y);
     }
 
-    void VMath::scaleVector(Vector2f *vector, float scale)
+    void VMath::scale(Vector2f *vector, float scale)
     {
         *vector /= (float)sqrt(vector->x * vector->x + vector->y * vector->y);
         *vector *= scale;

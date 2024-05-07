@@ -15,7 +15,7 @@ PreyBoid::PreyBoid(int id, sf::RenderWindow *window)
     _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     float velocity = rand() / (1.f * RAND_MAX);
-    VMath::scaleVector(&_dir, velocity * _maxVel);
+    VMath::scale(&_dir, velocity * _maxVel);
 
     // initialise boundaries
     _mr = _windowDimensions.x - _ml;
@@ -36,7 +36,7 @@ void PreyBoid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, i
 
     margins();
 
-    VMath::scaleVector(&_dir, _maxVel);
+    VMath::scale(&_dir, _maxVel);
 
     _pos += _dir;
 

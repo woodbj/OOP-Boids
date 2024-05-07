@@ -6,13 +6,13 @@
 #include <iostream>
 #include <ctime>
 #include <cmath>
-#include "Boid.h"
+#include "PredBoid.h"
 #include "VMath.h"
 
 using sf::Vector2f;
 using sf::Vector2u;
 
-class PlayBoid : public Boid
+class PlayBoid : public PredBoid
 {
 private:
     BoidType _bt = PREDATOR;

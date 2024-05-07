@@ -21,7 +21,6 @@ public:
     Flock(FlockConfig, sf::RenderWindow *);
     ~Flock();
     void update();
-    Boid* getBoid(int index);
 };
 
 
