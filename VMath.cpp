@@ -2,6 +2,7 @@
 
 float VMath::length(Vector2f vector)
 {
+    
     return sqrt(vector.x * vector.x + vector.y * vector.y);
 }
 
@@ -13,6 +14,9 @@ void VMath::scale(Vector2f *vector, float scale)
 
 Vector2f VMath::resize(Vector2f vector, float length)
 {
+    Vector2f out(0,0);
+    if (vector.x == 0 && vector.y == 0) return out;
+
     vector /= (float)sqrt(vector.x * vector.x + vector.y * vector.y);
     vector *= length;
     return vector;

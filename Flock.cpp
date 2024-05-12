@@ -22,5 +22,8 @@ void Flock::update()
 
 Flock::~Flock()
 {
-    delete[] _boids;
+    for (int i = 0; i < _size; i++)
+    {
+        delete _boids[i];
+    }
 }
