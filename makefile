@@ -1,8 +1,8 @@
-all: clean main boid flock vmath link
+all: main boid flock vmath drawhelper link 
 	./app
 
 link:
-	g++ boid.o flock.o main.o vmath.o -o app -lsfml-graphics -lsfml-window -lsfml-system
+	g++ boid.o flock.o main.o vmath.o drawhelper.o -o app -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
 	rm app main.o flock.o boid.o vmath.o 
@@ -18,6 +18,9 @@ boid: Boid.cpp
 
 vmath: VMath.cpp
 	g++ -c VMath.cpp -o vmath.o
+
+drawhelper: DrawHelper.cpp
+	g++ -c DrawHelper.cpp -o drawhelper.o
 
 
 

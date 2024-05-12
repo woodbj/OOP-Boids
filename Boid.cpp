@@ -8,6 +8,7 @@ Boid::Boid(int id, sf::RenderWindow *window)
     _id = id;
     _window = window;
     _windowDimensions = _window->getSize();
+    dh = new DrawHelper(_window);
 
     // initialise position
     _pos.x = rand() % _windowDimensions.x;
@@ -24,6 +25,11 @@ Boid::Boid(int id, sf::RenderWindow *window)
 
     // give a shape
     _sprite = sf::CircleShape(_boidSize);
+
+    if(_id == 0)
+    {
+        _sprite.setFillColor(sf::Color::Magenta);
+    }
 }
 
 void Boid::update(Boid** boids, int size)
@@ -32,6 +38,10 @@ void Boid::update(Boid** boids, int size)
     Vector2f alignment;
     Vector2f cohesion;
     Vector2f predator;
+
+    Vector2f av;
+    Vector2f cv;
+    Vector2f sv;
 
     int alignmentNeighbours = 0;
     int cohesionNeighbours = 0;
@@ -81,29 +91,46 @@ void Boid::update(Boid** boids, int size)
     }
 
     // apply the velocity changes
-    _vel += _sf * separation;
+    sv += _sf * separation;
     _vel += _pf * predator;
 
     if (alignmentNeighbours > 0)
     {
         alignment /= (float)alignmentNeighbours;
-        _vel += (alignment - _vel) * _af;
+        av += (alignment) * _af;
     }
 
     if (cohesionNeighbours > 0)
     {
         cohesion /= (float)cohesionNeighbours;
-        _vel += -(_pos - cohesion) * _cf;
+        cv += -(_pos - cohesion) * _cf;
+    }
+
+    
+
+    if (_id == 0)
+    {
+        dh->drawCircle(_pos, _visualRange, _boidSize);
+        dh->drawCircle(_pos, _personalSpace, _boidSize);
+
+        Vector2f separate = sv / _sf;
+        Vector2f align = 50.f * av / _af;
+        Vector2f cohere = cv / _cf;
+        
+        dh->drawVelocity(_pos, separate, sf::Color::Blue, _boidSize);
+        dh->drawVelocity(_pos, align, sf::Color::Red, _boidSize);
+        dh->drawVelocity(_pos, cohere, sf::Color::Green, _boidSize);
     }
 
     // keep the boids within the margins
     margins();
 
     // scale the vector to be within the max velocity
+    _vel += av + cv + sv;
     VMath::scale(&_vel, _maxVel);
+    _pos += _vel;
 
     // move and draw the boid
-    _pos += _vel;
     draw();
 }
 

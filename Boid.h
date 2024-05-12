@@ -8,6 +8,7 @@
 #include <cmath>
 #include "Boid.h"
 #include "VMath.h"
+#include "DrawHelper.h"
 
 using sf::Vector2f;
 using sf::Vector2u;
@@ -25,12 +26,14 @@ class Boid
     Vector2u _windowDimensions;
     sf::CircleShape _sprite;
     sf::RenderWindow *_window;
+    DrawHelper *dh;
     int _id;
     float _maxVel = 1;
     float _boidSize = 5;
     float _visualRange = 200.f;
+    float _personalSpace = 50;
     // Separation
-    float _sr = 5;      // separation range
+    float _sr = _personalSpace;      // separation range
     float _sf = 0.0005f; // separation factor
     // Alignment
     float _ar = _visualRange; // alignment range
