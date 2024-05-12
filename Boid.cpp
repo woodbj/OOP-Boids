@@ -1,8 +1,8 @@
-#include "PreyBoid.h"
+#include "Boid.h"
 
 // https://people.ece.cornell.edu/land/courses/ece4760/labs/s2021/Boids/Boids.html#:~:text=Boids%20is%20an%20artificial%20life,very%20simple%20set%20of%20rules.
 
-PreyBoid::PreyBoid(int id, sf::RenderWindow *window)
+Boid::Boid(int id, sf::RenderWindow *window)
 {
     // initialise variables
     _id = id;
@@ -26,7 +26,7 @@ PreyBoid::PreyBoid(int id, sf::RenderWindow *window)
     _sprite = sf::CircleShape(_boidSize);
 }
 
-void PreyBoid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, int size)
+void Boid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, int size)
 {
     separation(positions, size);
     alignment(positions, velocities, size);
@@ -43,7 +43,7 @@ void PreyBoid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, i
     draw();
 }
 
-void PreyBoid::separation(Vector2f *positions, int size)
+void Boid::separation(Vector2f *positions, int size)
 {
     Vector2f close;
     for (int i = 0; i < size; i++)
@@ -56,7 +56,7 @@ void PreyBoid::separation(Vector2f *positions, int size)
     }
 }
 
-void PreyBoid::alignment(Vector2f *positions, Vector2f *vel, int size)
+void Boid::alignment(Vector2f *positions, Vector2f *vel, int size)
 {
     if (!_align)
         return;
@@ -78,7 +78,7 @@ void PreyBoid::alignment(Vector2f *positions, Vector2f *vel, int size)
     }
 }
 
-void PreyBoid::cohesion(Vector2f *positions, int size)
+void Boid::cohesion(Vector2f *positions, int size)
 {
     if (!_cohere)
         return;
@@ -101,7 +101,7 @@ void PreyBoid::cohesion(Vector2f *positions, int size)
     }
 }
 
-void PreyBoid::margins()
+void Boid::margins()
 {
     if (_pos.x < _ml)
         _dir.x += _tf;
@@ -113,7 +113,7 @@ void PreyBoid::margins()
         _dir.y += _tf;
 }
 
-void PreyBoid::constrainPosition()
+void Boid::constrainPosition()
 {
 
     if (_pos.x > _windowDimensions.x)
@@ -126,7 +126,7 @@ void PreyBoid::constrainPosition()
         _pos.y += _windowDimensions.y;
 }
 
-void PreyBoid::draw()
+void Boid::draw()
 {
     _sprite.setPosition(_pos);
     _window->draw(_sprite);

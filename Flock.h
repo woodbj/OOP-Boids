@@ -1,7 +1,6 @@
 #ifndef FLOCK_H
 #define FLOCK_H
 #include "Boid.h"
-#include "PreyBoid.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 

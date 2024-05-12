@@ -8,7 +8,7 @@ Flock::Flock(FlockConfig fc, sf::RenderWindow *window)
 
     for (int i = 0; i < fc.preyCount; i++)
     {
-        _boids[i] = new PreyBoid(i, window);
+        _boids[i] = new Boid(i, window);
     }
 }
 

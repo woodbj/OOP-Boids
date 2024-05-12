@@ -1,4 +1,4 @@
-all: main preyboid flock vmath link
+all: main boid flock vmath link
 	./app
 
 flock: Flock.cpp
@@ -7,14 +7,14 @@ flock: Flock.cpp
 vmath: VMath.cpp
 	g++ -c VMath.cpp -o vmath.o
 
-preyboid: PreyBoid.cpp 
-	g++ -c PreyBoid.cpp -o preyboid.o
+boid: PreyBoid.cpp 
+	g++ -c Boid.cpp -o boid.o
 
 main: main.cpp 
 	g++ -c main.cpp -o main.o
 
 link:
-	g++ preyboid.o flock.o main.o vmath.o -o app -lsfml-graphics -lsfml-window -lsfml-system
+	g++ boid.o flock.o main.o vmath.o -o app -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
 	rm app main.o flock.o boid.o vmath.o 
