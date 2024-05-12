@@ -32,8 +32,6 @@ void Boid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, int s
     alignment(positions, velocities, size);
     cohesion(positions, size);
 
-    
-
     margins();
 
     VMath::scale(&_dir, _maxVel);
@@ -111,19 +109,6 @@ void Boid::margins()
         _dir.y -= _tf;
     if (_pos.y < _mt)
         _dir.y += _tf;
-}
-
-void Boid::constrainPosition()
-{
-
-    if (_pos.x > _windowDimensions.x)
-        _pos.x -= _windowDimensions.x;
-    if (_pos.y > _windowDimensions.y)
-        _pos.y -= _windowDimensions.y;
-    if (_pos.x < 0)
-        _pos.x += _windowDimensions.x;
-    if (_pos.y < 0)
-        _pos.y += _windowDimensions.y;
 }
 
 void Boid::draw()

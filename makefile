@@ -7,7 +7,7 @@ flock: Flock.cpp
 vmath: VMath.cpp
 	g++ -c VMath.cpp -o vmath.o
 
-boid: PreyBoid.cpp 
+boid: Boid.cpp 
 	g++ -c Boid.cpp -o boid.o
 
 main: main.cpp 

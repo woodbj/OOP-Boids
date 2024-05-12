@@ -47,19 +47,19 @@ class Boid
     float _mb;
     float _tf = 0.2; // turn factor
 
-    void constrainPosition();
-
 public:
     Boid(int, sf::RenderWindow *);
 
-    // virtuals
+    // General functions
     Vector2f getPos() { return _pos; }
     Vector2f getVel() { return _dir; }
     BoidType getBoidType() {return bt;}
-    virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
-    void draw();
 
-    // others
+    // inherited functions
+    virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
+    virtual void draw();
+
+    // local functions
     void setDir(Vector2f dir) { _dir = dir; }
     void separation(Vector2f *distances, int count);
     void alignment(Vector2f *dist, Vector2f *vel, int size);
