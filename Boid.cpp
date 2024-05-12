@@ -26,77 +26,83 @@ Boid::Boid(int id, sf::RenderWindow *window)
     _sprite = sf::CircleShape(_boidSize);
 }
 
-void Boid::update(Vector2f *positions, Vector2f *velocities, BoidType* bt, int size)
+void Boid::update(Vector2f *pos, Vector2f *vel, BoidType *bt, int size)
 {
-    separation(positions, size);
-    alignment(positions, velocities, size);
-    cohesion(positions, size);
+    Vector2f separation;
+    Vector2f alignment;
+    Vector2f cohesion;
+    Vector2f predator;
 
+    int alignmentNeighbours = 0;
+    int cohesionNeighbours = 0;
+
+    // loop through all other boids
+    for (int i = 0; i < size; i++)
+    {
+        // get the distance to the boid, skip if the distance is zero
+        float range = VMath::length(_pos - pos[i]);
+        if (range == 0)
+        {
+            continue;
+        }
+
+        // act depending on the type of boid
+        switch (bt[i])
+        {
+        case PREY:
+            // Separation
+            if (range < _sr)
+            {
+                separation += _pos - pos[i];
+            }
+            // Alignment
+            if (range < _ar)
+            {
+                alignment += vel[i];
+                alignmentNeighbours++;
+            }
+            // Cohesion
+            if (range < _cr)
+            {
+                cohesion += pos[i];
+                cohesionNeighbours++;
+            }
+            break;
+
+        case PREDATOR:
+            if (range < _pr)
+            {
+                predator -= _pos - pos[i];
+            }
+            break;
+        }
+    }
+
+    // apply the velocity changes
+    _dir += _sf * separation;
+    _dir += _pf * predator;
+
+    if (alignmentNeighbours > 0)
+    {
+        alignment /= (float)alignmentNeighbours;
+        _dir += (alignment - _dir) * _af;
+    }
+
+    if (cohesionNeighbours > 0)
+    {
+        cohesion /= (float)cohesionNeighbours;
+        _dir += -(_pos - cohesion) * _cf;
+    }
+
+    // keep the boids within the margins
     margins();
 
+    // scale the vector to be within the max velocity
     VMath::scale(&_dir, _maxVel);
 
+    // move and draw the boid
     _pos += _dir;
-
     draw();
-}
-
-void Boid::separation(Vector2f *positions, int size)
-{
-    Vector2f close;
-    for (int i = 0; i < size; i++)
-    {
-        if (VMath::length(_pos - positions[i]) < _sr)
-        {
-            close += _pos - positions[i];
-        }
-        _dir += _sf * close;
-    }
-}
-
-void Boid::alignment(Vector2f *positions, Vector2f *vel, int size)
-{
-    if (!_align)
-        return;
-    Vector2f avgVel;
-    int neighbours = 0;
-
-    for (int i = 0; i < size; i++)
-    {
-        if (VMath::length(_pos - positions[i]) < _ar)
-        {
-            avgVel += vel[i];
-            neighbours++;
-        }
-    }
-    if (neighbours > 0)
-    {
-        avgVel /= (float)neighbours;
-        _dir += (avgVel - _dir) * _af;
-    }
-}
-
-void Boid::cohesion(Vector2f *positions, int size)
-{
-    if (!_cohere)
-        return;
-
-    Vector2f avgPos;
-    int neighbours = 0;
-
-    for (int i = 0; i < size; i++)
-    {
-        if (VMath::length(_pos - positions[i]) < _cr)
-        {
-            avgPos += positions[i];
-            neighbours++;
-        }
-    }
-    if (neighbours > 0)
-    {
-        avgPos /= (float)neighbours;
-        _dir += -(_pos - avgPos) * _cf;
-    }
 }
 
 void Boid::margins()

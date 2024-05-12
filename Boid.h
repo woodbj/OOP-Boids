@@ -28,18 +28,20 @@ class Boid
     int _id;
     float _maxVel = 1;
     float _boidSize = 5;
+    float _visualRange = 200.f;
     // Separation
-    bool _separate = true;
     float _sr = 5;      // separation range
     float _sf = 0.0005f; // separation factor
     // Alignment
-    bool _align = true;
-    float _ar = 200.f; // alignment range
+    float _ar = _visualRange; // alignment range
     float _af = 0.02f; // alignment factor
     // Cohesion
-    bool _cohere = true;
-    float _cr = _ar;      // cohesion range
+    float _cr = _visualRange;      // cohesion range
     float _cf = 0.00005f; // cohesion factor
+    // Flee
+    float _pr = _visualRange;
+    float _pf = 1.f;
+
     // Margins
     float _ml = 100; // margin to turn from
     float _mr;
@@ -57,6 +59,7 @@ public:
 
     // inherited functions
     virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
+    // virtual void update(Boid**,  int count);
     virtual void draw();
 
     // local functions
