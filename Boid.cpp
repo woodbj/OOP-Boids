@@ -107,19 +107,19 @@ void Boid::update(Boid** boids, int size)
         cv = -(_pos - cohesion) * _cf;
     }
 
-    if (_id == 0)
-    {
-        dh->drawCircle(_pos, _visualRange, _boidSize);
-        dh->drawCircle(_pos, _personalSpace, _boidSize);
+    // if (_id == 0)
+    // {
+    //     dh->drawCircle(_pos, _visualRange, _boidSize);
+    //     dh->drawCircle(_pos, _personalSpace, _boidSize);
 
-        Vector2f separate = sv / _sf;
-        Vector2f align = 50.f * av / _af;
-        Vector2f cohere = cv / _cf;
+    //     Vector2f separate = sv / _sf;
+    //     Vector2f align = 50.f * av / _af;
+    //     Vector2f cohere = cv / _cf;
         
-        dh->drawVelocity(_pos, separate, sf::Color::Blue, _boidSize);
-        dh->drawVelocity(_pos, align, sf::Color::Red, _boidSize);
-        dh->drawVelocity(_pos, cohere, sf::Color::Green, _boidSize);
-    }
+    //     dh->drawVelocity(_pos, separate, sf::Color::Blue, _boidSize);
+    //     dh->drawVelocity(_pos, align, sf::Color::Red, _boidSize);
+    //     dh->drawVelocity(_pos, cohere, sf::Color::Green, _boidSize);
+    // }
 
     // keep the boids within the margins
     margins();
