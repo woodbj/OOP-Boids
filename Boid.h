@@ -31,10 +31,10 @@ class Boid
     float _maxVel = 1;
     float _boidSize = 5;
     float _visualRange = 200.f;
-    float _personalSpace = 50;
+    float _personalSpace = 25;
     // Separation
     float _sr = _personalSpace;      // separation range
-    float _sf = 0.0005f; // separation factor
+    float _sf = 0.0009f; // separation factor
     // Alignment
     float _ar = _visualRange; // alignment range
     float _af = 0.02f; // alignment factor

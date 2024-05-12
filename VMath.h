@@ -9,6 +9,7 @@ namespace VMath
 {
     float length(Vector2f vector);
     void scale(Vector2f *vector, float scale);
+    Vector2f resize(Vector2f vector, float length);
 
 };
 

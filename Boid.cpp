@@ -42,6 +42,7 @@ void Boid::update(Boid** boids, int size)
     Vector2f av;
     Vector2f cv;
     Vector2f sv;
+    Vector2f pv;
 
     int alignmentNeighbours = 0;
     int cohesionNeighbours = 0;
@@ -91,22 +92,20 @@ void Boid::update(Boid** boids, int size)
     }
 
     // apply the velocity changes
-    sv += _sf * separation;
-    _vel += _pf * predator;
+    sv = _sf * separation;
+    pv = _pf * predator;
 
     if (alignmentNeighbours > 0)
     {
         alignment /= (float)alignmentNeighbours;
-        av += (alignment) * _af;
+        av = (alignment) * _af;
     }
 
     if (cohesionNeighbours > 0)
     {
         cohesion /= (float)cohesionNeighbours;
-        cv += -(_pos - cohesion) * _cf;
+        cv = -(_pos - cohesion) * _cf;
     }
-
-    
 
     if (_id == 0)
     {
