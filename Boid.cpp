@@ -26,7 +26,7 @@ Boid::Boid(int id, sf::RenderWindow *window)
     _sprite = sf::CircleShape(_boidSize);
 }
 
-void Boid::update(Vector2f *pos, Vector2f *vel, BoidType *bt, int size)
+void Boid::update(Boid** boids, int size)
 {
     Vector2f separation;
     Vector2f alignment;
@@ -38,33 +38,33 @@ void Boid::update(Vector2f *pos, Vector2f *vel, BoidType *bt, int size)
 
     // loop through all other boids
     for (int i = 0; i < size; i++)
-    {
-        // get the distance to the boid, skip if the distance is zero
-        float range = VMath::length(_pos - pos[i]);
-        if (range == 0)
+    {   
+        if (boids[i]->getId() == _id)
         {
             continue;
         }
 
+        float range = VMath::length(_pos - boids[i]->getPos());
+
         // act depending on the type of boid
-        switch (bt[i])
+        switch (boids[i]->getBoidType())
         {
         case PREY:
             // Separation
             if (range < _sr)
             {
-                separation += _pos - pos[i];
+                separation += _pos - boids[i]->getPos();
             }
             // Alignment
             if (range < _ar)
             {
-                alignment += vel[i];
+                alignment += boids[i]->getVel();
                 alignmentNeighbours++;
             }
             // Cohesion
             if (range < _cr)
             {
-                cohesion += pos[i];
+                cohesion += boids[i]->getPos();
                 cohesionNeighbours++;
             }
             break;
@@ -72,7 +72,7 @@ void Boid::update(Vector2f *pos, Vector2f *vel, BoidType *bt, int size)
         case PREDATOR:
             if (range < _pr)
             {
-                predator -= _pos - pos[i];
+                predator -= _pos - boids[i]->getPos();
             }
             break;
         }
@@ -121,4 +121,9 @@ void Boid::draw()
 {
     _sprite.setPosition(_pos);
     _window->draw(_sprite);
+}
+
+Boid::~Boid()
+{
+    std::cout << "Deleting boid id " << _id << '\n';
 }

@@ -19,7 +19,7 @@ typedef enum BoidType{
 
 class Boid
 {
-    BoidType bt = PREY;
+    BoidType _bt = PREY;
     Vector2f _pos;
     Vector2f _dir;
     Vector2u _windowDimensions;
@@ -55,11 +55,12 @@ public:
     // General functions
     Vector2f getPos() { return _pos; }
     Vector2f getVel() { return _dir; }
-    BoidType getBoidType() {return bt;}
+    BoidType getBoidType() {return _bt;}
+    int getId() {return _id;}
 
     // inherited functions
-    virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
-    // virtual void update(Boid**,  int count);
+    // virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
+    virtual void update(Boid** boids,  int count);
     virtual void draw();
 
     // local functions
@@ -68,6 +69,8 @@ public:
     void alignment(Vector2f *dist, Vector2f *vel, int size);
     void cohesion(Vector2f *distances, int count);
     void margins();
+
+    ~Boid();
 };
 
 

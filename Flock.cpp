@@ -14,26 +14,11 @@ Flock::Flock(FlockConfig fc, sf::RenderWindow *window)
 
 void Flock::update()
 {
-    Vector2f pos[_size];
-    Vector2f vel[_size];
-    BoidType bt[_size];
-
-    // get position of all boids
-    for (int j = 0; j < _size; j++)
-    {
-        pos[j] = _boids[j]->getPos();
-        vel[j] = _boids[j]->getVel();
-        bt[j] = _boids[j]->getBoidType();
-    }
-
-    // update all boids 
     for (int i = 0; i < _size; i++)
     {
-        _boids[i]->update(pos, vel, bt, _size);
+        _boids[i]->update(_boids, _size);
     }
 }
-
-
 
 Flock::~Flock()
 {
