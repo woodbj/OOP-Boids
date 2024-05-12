@@ -12,10 +12,10 @@ Boid::Boid(int id, sf::RenderWindow *window)
     // initialise position
     _pos.x = rand() % _windowDimensions.x;
     _pos.y = rand() % _windowDimensions.y;
-    _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
-    _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
+    _vel.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
+    _vel.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
     float velocity = rand() / (1.f * RAND_MAX);
-    VMath::scale(&_dir, velocity * _maxVel);
+    VMath::scale(&_vel, velocity * _maxVel);
 
     // initialise boundaries
     _mr = _windowDimensions.x - _ml;
@@ -39,11 +39,13 @@ void Boid::update(Boid** boids, int size)
     // loop through all other boids
     for (int i = 0; i < size; i++)
     {   
+        // skip if self
         if (boids[i]->getId() == _id)
         {
             continue;
         }
 
+        // get distance to boid
         float range = VMath::length(_pos - boids[i]->getPos());
 
         // act depending on the type of boid
@@ -79,42 +81,42 @@ void Boid::update(Boid** boids, int size)
     }
 
     // apply the velocity changes
-    _dir += _sf * separation;
-    _dir += _pf * predator;
+    _vel += _sf * separation;
+    _vel += _pf * predator;
 
     if (alignmentNeighbours > 0)
     {
         alignment /= (float)alignmentNeighbours;
-        _dir += (alignment - _dir) * _af;
+        _vel += (alignment - _vel) * _af;
     }
 
     if (cohesionNeighbours > 0)
     {
         cohesion /= (float)cohesionNeighbours;
-        _dir += -(_pos - cohesion) * _cf;
+        _vel += -(_pos - cohesion) * _cf;
     }
 
     // keep the boids within the margins
     margins();
 
     // scale the vector to be within the max velocity
-    VMath::scale(&_dir, _maxVel);
+    VMath::scale(&_vel, _maxVel);
 
     // move and draw the boid
-    _pos += _dir;
+    _pos += _vel;
     draw();
 }
 
 void Boid::margins()
 {
     if (_pos.x < _ml)
-        _dir.x += _tf;
+        _vel.x += _tf;
     if (_pos.x > _mr)
-        _dir.x -= _tf;
+        _vel.x -= _tf;
     if (_pos.y > _mb)
-        _dir.y -= _tf;
+        _vel.y -= _tf;
     if (_pos.y < _mt)
-        _dir.y += _tf;
+        _vel.y += _tf;
 }
 
 void Boid::draw()

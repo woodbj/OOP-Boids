@@ -21,7 +21,7 @@ class Boid
 {
     BoidType _bt = PREY;
     Vector2f _pos;
-    Vector2f _dir;
+    Vector2f _vel;
     Vector2u _windowDimensions;
     sf::CircleShape _sprite;
     sf::RenderWindow *_window;
@@ -54,17 +54,17 @@ public:
 
     // General functions
     Vector2f getPos() { return _pos; }
-    Vector2f getVel() { return _dir; }
+    Vector2f getVel() { return _vel; }
     BoidType getBoidType() {return _bt;}
     int getId() {return _id;}
 
     // inherited functions
     // virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
-    virtual void update(Boid** boids,  int count);
+    virtual void update(Boid** boids, int count);
     virtual void draw();
 
     // local functions
-    void setDir(Vector2f dir) { _dir = dir; }
+    void setDir(Vector2f dir) { _vel = dir; }
     void separation(Vector2f *distances, int count);
     void alignment(Vector2f *dist, Vector2f *vel, int size);
     void cohesion(Vector2f *distances, int count);
