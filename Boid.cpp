@@ -26,13 +26,13 @@ Boid::Boid(int id, sf::RenderWindow *window)
     // give a shape
     _sprite = sf::CircleShape(_boidSize);
 
-    if(_id == 0)
+    if (_id == 0)
     {
         _sprite.setFillColor(sf::Color::Magenta);
     }
 }
 
-void Boid::update(Boid** boids, int size)
+void Boid::update(Boid **boids, int size)
 {
     Vector2f separation;
     Vector2f alignment;
@@ -50,7 +50,7 @@ void Boid::update(Boid** boids, int size)
 
     // loop through all other boids
     for (int i = 0; i < size; i++)
-    {   
+    {
         // skip if self
         if (boids[i]->getId() == _id)
         {
@@ -68,7 +68,7 @@ void Boid::update(Boid** boids, int size)
             if (range < _sr)
             {
                 float factor = 1.f - range / _sr;
-                separation += factor * (_pos - boids[i]->getPos());
+                separation += factor * VMath::resize(_pos - boids[i]->getPos(), 1);
                 separationNeighbours++;
             }
             // Alignment
@@ -80,8 +80,8 @@ void Boid::update(Boid** boids, int size)
             // Cohesion
             if (range < _cr)
             {
-                float factor = 1.f;
-                cohesion += factor * (boids[i]->getPos());
+                float factor = 1.f - range / _cr;
+                cohesion += factor * (boids[i]->getPos() - _pos);
                 cohesionNeighbours++;
             }
             break;
@@ -95,38 +95,24 @@ void Boid::update(Boid** boids, int size)
         }
     }
 
-    // apply the velocity changes    
+    // apply the velocity changes
     pv = _pf * predator;
 
     if (separationNeighbours > 0)
-    {        
+    {
         sv = _sf * separation;
     }
 
     if (alignmentNeighbours > 0)
     {
         alignment /= (float)alignmentNeighbours;
-        av = (alignment) * _af;
+        av = alignment * _af;
     }
 
     if (cohesionNeighbours > 0)
     {
         cohesion /= (float)cohesionNeighbours;
-        cv = -(_pos - cohesion) * _cf;
-    }
-
-    if (_id == 0)
-    {
-        dh->drawCircle(_pos, _visualRange, _boidSize);
-        dh->drawCircle(_pos, _personalSpace, _boidSize);
-
-        Vector2f separate = sv / _sf;
-        Vector2f align = 50.f * av / _af;
-        Vector2f cohere = cv / _cf;
-        
-        dh->drawVelocity(_pos, separate, sf::Color::Blue, _boidSize);
-        dh->drawVelocity(_pos, align, sf::Color::Red, _boidSize);
-        dh->drawVelocity(_pos, cohere, sf::Color::Green, _boidSize);
+        cv = cohesion * _cf;
     }
 
     // keep the boids within the margins
@@ -139,6 +125,19 @@ void Boid::update(Boid** boids, int size)
 
     // move and draw the boid
     draw();
+
+    // if (_id == 0)
+    // {
+    //     dh->drawCircle(_pos, _visualRange, _boidSize);
+    //     dh->drawCircle(_pos, _personalSpace, _boidSize);
+
+    //     float scale = 5000;
+
+    //     dh->drawVelocity(_pos, scale * sv, sf::Color::Blue, _boidSize);
+    //     dh->drawVelocity(_pos, scale * av, sf::Color::Red, _boidSize);
+    //     dh->drawVelocity(_pos, scale * cv, sf::Color::Green, _boidSize);
+    //     dh->drawVelocity(_pos, 100.f * _vel, sf::Color::White, _boidSize);
+    // }
 }
 
 void Boid::margins()

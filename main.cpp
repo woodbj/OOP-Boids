@@ -10,7 +10,7 @@ int main()
     int h = 1080;
 
     FlockConfig fc;
-    fc.preyCount = 250;
+    fc.preyCount = 200;
     fc.predCount = 0;
     fc.playCount = 0;
 

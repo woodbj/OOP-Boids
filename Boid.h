@@ -34,13 +34,13 @@ class Boid
     float _personalSpace = 25;
     // Separation
     float _sr = _personalSpace;      // separation range
-    float _sf = 0.009f; // separation factor
+    float _sf = 0.05f; // separation factor
     // Alignment
     float _ar = _visualRange; // alignment range
-    float _af = 0.02f; // alignment factor
+    float _af = 0.015f; // alignment factor
     // Cohesion
     float _cr = _visualRange;      // cohesion range
-    float _cf = 0.000005f; // cohesion factor
+    float _cf = 0.0001f; // cohesion factor
     // Flee
     float _pr = _visualRange;
     float _pf = 1.f;
