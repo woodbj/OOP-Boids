@@ -1,29 +1,30 @@
+
 #ifndef PREDBOID_H
 #define PREDBOID_H
-#include <SFML/Graphics.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <cstdlib>
-#include <iostream>
-#include <ctime>
-#include <cmath>
+
 #include "Boid.h"
 #include "VMath.h"
+#include <SFML/Graphics.hpp>
+#include <cmath>
 
-using sf::Vector2f;
-using sf::Vector2u;
-
-class PredBoid : public Boid
+class PredBoid : public Boid 
 {
 private:
     BoidType _bt = PREDATOR;
-    Vector2f _pos;
-    Vector2f _dir;
-    Vector2u _windowDimensions;
+    sf::Vector2f _pos;
+    sf::Vector2f _vel;
+    sf::Vector2f _dir;
+    sf::Vector2u _windowDimensions;
     sf::CircleShape _sprite;
-    sf::RenderWindow *_window;
+    sf::RenderWindow* _window;
     int _id;
-    float _maxVel = 3;
-    float _boidSize = 5;
+    float _maxVel = 7;
+    float _boidSize = 10;
+    float _visualRange = 300.0f;
+    private:
+    float warningRange = 100.0f; // Warning range to start targeting other boids
+    float approachFactor = 0.5f; // Control how aggressively the PredBoid steers towards the target
+    float _captureRange = 10.0f;
 
     // Margins
     float _ml = 100; // margin to turn from
@@ -32,19 +33,14 @@ private:
     float _mb;
     float _tf = 0.2; // turn factor
 
-    void constrainPosition();
+    void checkBounds();
+    void normalizeVelocity();
 
 public:
-    PredBoid(int, sf::RenderWindow *);
+    PredBoid(int id, sf::RenderWindow* window);
 
-    // virtuals
-    Vector2f getPos() { return _pos; }
-    Vector2f getVel() { return _dir; }
-    BoidType getBoidType() {return _bt;}
-    void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
-    void draw();
-
-    // others
+    virtual void update(Boid** boids, int size) override;
+    virtual void draw() override;
 };
 
-#endif
+#endif // PREDBOID_H
