@@ -15,7 +15,8 @@ using sf::Vector2u;
 
 typedef enum BoidType{
     PREY,
-    PREDATOR
+    PREDATOR,
+    DEAD
 } BoidType;
 
 class Boid
@@ -60,6 +61,7 @@ public:
     Vector2f getVel() { return _vel; }
     BoidType getBoidType() {return _bt;}
     int getId() {return _id;}
+    void kill() {_bt = DEAD;}
 
     // inherited functions
     // virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
@@ -67,10 +69,6 @@ public:
     virtual void draw();
 
     // local functions
-    void setDir(Vector2f dir) { _vel = dir; }
-    void separation(Vector2f *distances, int count);
-    void alignment(Vector2f *dist, Vector2f *vel, int size);
-    void cohesion(Vector2f *distances, int count);
     void margins();
 
     ~Boid();
