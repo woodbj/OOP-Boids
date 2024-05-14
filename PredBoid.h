@@ -5,7 +5,9 @@
 #include "Boid.h"
 #include "VMath.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <cmath>
+#include "DrawHelper.h"
 
 class PredBoid : public Boid 
 {
@@ -39,8 +41,23 @@ private:
 public:
     PredBoid(int id, sf::RenderWindow* window);
 
+    // General functions
+    Vector2f getPos() { return _pos; }
+    Vector2f getVel() { return _vel; }
+    BoidType getBoidType() {return _bt;}
+    int getId() {return _id;}
+
     virtual void update(Boid** boids, int size) override;
     virtual void draw() override;
+
+    // local functions
+    void setDir(Vector2f dir) { _vel = dir; }
+    void separation(Vector2f *distances, int count);
+    void alignment(Vector2f *dist, Vector2f *vel, int size);
+    void cohesion(Vector2f *distances, int count);
+    void margins();
+
+    ~PredBoid();
 };
 
 #endif // PREDBOID_H
