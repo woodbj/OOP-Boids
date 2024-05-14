@@ -28,7 +28,7 @@ Boid::Boid(int id, sf::RenderWindow *window)
 
     if (_id == 0)
     {
-        _sprite.setFillColor(sf::Color::Magenta);
+        _sprite.setFillColor(sf::Color::White);
     }
 }
 

@@ -7,6 +7,13 @@ PredBoid::PredBoid(int id, sf::RenderWindow* window) : Boid(id, window), _window
     _pos = sf::Vector2f(rand() % _windowDimensions.x, rand() % _windowDimensions.y);
     _dir = VMath::resize(sf::Vector2f(2 * (rand() / (float)RAND_MAX) - 1, 2 * (rand() / (float)RAND_MAX) - 1), _maxVel);
 
+    _pos.x = rand() % _windowDimensions.x;
+    _pos.y = rand() % _windowDimensions.y;
+    _vel.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
+    _vel.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
+    float velocity = rand() / (1.f * RAND_MAX);
+    VMath::scale(&_vel, velocity * _maxVel);
+
     _mr = _windowDimensions.x - _ml;
     _mt = _ml;
     _mb = _windowDimensions.y - _ml;
@@ -18,6 +25,8 @@ PredBoid::PredBoid(int id, sf::RenderWindow* window) : Boid(id, window), _window
 void PredBoid::update(Boid** boids, int size) {
     sf::Vector2f closestBoidVector;
     float closestDist = std::numeric_limits<float>::max();
+
+    std::cout << "Updating PredBoid ID " << _id << std::endl;
 
     for (int i = 0; i < size; i++)
     {
@@ -35,9 +44,19 @@ void PredBoid::update(Boid** boids, int size) {
         // act depending on the type of boid
         if (boids[i]->getBoidType() == PREY && dist < _visualRange) {
             // Chase logic 
-            sf::Vector2f directionToPrey = boids[i]->getPos() - _pos;
-            _vel += VMath::resize(directionToPrey, _maxVel); // Directly move towards prey
+            // sf::Vector2f directionToPrey = boids[i]->getPos() - _pos;
+            // _vel += VMath::resize(directionToPrey, _maxVel); 
+            // Directly move towards prey
+            sf::Vector2f otherPos = boids[i] -> getPos();
+            float dist = VMath::length(otherPos - _pos);
         }
+
+            if (dist < _visualRange && dist < closestDist) {
+                closestDist = dist;
+                closestBoidVector = otherPos - _pos;
+                std::cout << "Visualrange and closestdist test, distance is " << closestDist << " units away." << std::endl;
+            }
+
         // Check for the closest boid within the warning range
         if (dist < warningRange && dist < closestDist) 
         {
@@ -56,6 +75,11 @@ void PredBoid::update(Boid** boids, int size) {
         // }
     }
 
+    if (closestDist < _visualRange){
+        _vel += VMath::resize(closestBoidVector, _maxVel);
+        std::cout << "Chasing prey vector: (" << closestBoidVector.x << ", " << closestBoidVector.y << ") ." << std::endl;
+    }
+
         // If a closest boid is found within the warning range, adjust the direction towards this boid
     if (closestDist < warningRange) {
         closestBoidVector = VMath::resize(closestBoidVector, _maxVel);
@@ -70,6 +94,7 @@ void PredBoid::update(Boid** boids, int size) {
 }
 
 void PredBoid::draw() {
+    _sprite.setPosition(_pos);
     _window->draw(_sprite);
 }
 
