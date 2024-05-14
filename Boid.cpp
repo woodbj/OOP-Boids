@@ -25,11 +25,6 @@ Boid::Boid(int id, sf::RenderWindow *window)
 
     // give a shape
     _sprite = sf::CircleShape(_boidSize);
-
-    if (_id == 0)
-    {
-        _sprite.setFillColor(sf::Color::Magenta);
-    }
 }
 
 void Boid::update(Boid **boids, int size)
@@ -92,6 +87,8 @@ void Boid::update(Boid **boids, int size)
                 predator -= _pos - boids[i]->getPos();
             }
             break;
+        case DEAD:
+            break;
         }
     }
 
@@ -125,19 +122,6 @@ void Boid::update(Boid **boids, int size)
 
     // move and draw the boid
     draw();
-
-    // if (_id == 0)
-    // {
-    //     dh->drawCircle(_pos, _visualRange, _boidSize);
-    //     dh->drawCircle(_pos, _personalSpace, _boidSize);
-
-    //     float scale = 5000;
-
-    //     dh->drawVelocity(_pos, scale * sv, sf::Color::Blue, _boidSize);
-    //     dh->drawVelocity(_pos, scale * av, sf::Color::Red, _boidSize);
-    //     dh->drawVelocity(_pos, scale * cv, sf::Color::Green, _boidSize);
-    //     dh->drawVelocity(_pos, 100.f * _vel, sf::Color::White, _boidSize);
-    // }
 }
 
 void Boid::margins()
