@@ -29,6 +29,9 @@ Boid::Boid(int id, sf::RenderWindow *window)
 
 void Boid::update(Boid **boids, int size)
 {
+    // if the boid is dead don't do anything
+    if (_bt == DEAD) return;
+
     Vector2f separation;
     Vector2f alignment;
     Vector2f cohesion;
@@ -88,6 +91,7 @@ void Boid::update(Boid **boids, int size)
             }
             break;
         case DEAD:
+            // ignore dead boids
             break;
         }
     }
