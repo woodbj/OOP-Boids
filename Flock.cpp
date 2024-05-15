@@ -3,8 +3,6 @@
 
 Flock::Flock(FlockConfig fc, sf::RenderWindow *window)
 {
-    fc.predCount = 1;
-    fc.preyCount = 9;
     _size = fc.playCount + fc.predCount + fc.preyCount;
     _window = window;
     _boids = new Boid *[_size];
