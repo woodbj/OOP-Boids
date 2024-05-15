@@ -21,7 +21,7 @@ private:
     sf::RenderWindow* _window;
     int _id;
     float _maxVel = 7;
-    float _boidSize = 10;
+    float _boidSize = 5;
     float _visualRange = 300.0f;
     private:
     float warningRange = 100.0f; // Warning range to start targeting other boids
