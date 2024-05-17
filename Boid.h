@@ -54,6 +54,7 @@ class Boid
     float _tf = 0.2; // turn factor
 
 public:
+    Boid();
     Boid(int, sf::RenderWindow *);
 
     // General functions
