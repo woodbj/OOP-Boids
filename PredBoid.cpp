@@ -46,3 +46,8 @@ void PredBoid::moveToPrey(Boid *prey) {
         _vel = VMath::resize(_vel, _maxVel);
     }
 }
+
+PredBoid::~PredBoid()
+{
+    // std::cout << "Deleting predator id " << _id << '\n';
+}

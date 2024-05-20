@@ -20,6 +20,7 @@ public:
 private:
     Boid *findClosestPrey(Boid **boids, int count);
     void moveToPrey(Boid *prey);
+    virtual ~PredBoid() override;
 };
 
 

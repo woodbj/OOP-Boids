@@ -129,7 +129,6 @@ void Boid::update(Boid **boids, int size)
     _vel += av + cv + sv + pv;
     VMath::scale(&_vel, _maxVel);
     
-
     // move and draw the boid
     draw();
 }

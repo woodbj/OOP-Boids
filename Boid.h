@@ -13,7 +13,8 @@
 using sf::Vector2f;
 using sf::Vector2u;
 
-typedef enum BoidType{
+typedef enum BoidType
+{
     PREY,
     PREDATOR,
     DEAD
@@ -21,7 +22,7 @@ typedef enum BoidType{
 
 class Boid
 {
-protected:    
+protected:
     BoidType _bt;
     Vector2f _pos;
     Vector2f _vel;
@@ -35,14 +36,14 @@ protected:
     float _visualRange = 200.f;
     float _personalSpace = 25;
     // Separation
-    float _sr = _personalSpace;      // separation range
-    float _sf = 0.05f; // separation factor
+    float _sr = _personalSpace; // separation range
+    float _sf = 0.05f;          // separation factor
     // Alignment
     float _ar = _visualRange; // alignment range
-    float _af = 0.015f; // alignment factor
+    float _af = 0.02f;        // alignment factor
     // Cohesion
-    float _cr = _visualRange;      // cohesion range
-    float _cf = 0.0001f; // cohesion factor
+    float _cr = _visualRange; // cohesion range
+    float _cf = 0.0001f;      // cohesion factor
     // Flee
     float _pr = _visualRange;
     float _pf = 0.001;
@@ -55,25 +56,21 @@ protected:
     float _tf = 0.2; // turn factor
 
 public:
+    // constructor and destructor
     Boid(int, sf::RenderWindow *);
+    virtual ~Boid();
 
     // General functions
-    Vector2f getPos() { return _pos; }
-    Vector2f getVel() { return _vel; }
-    BoidType getBoidType() {return _bt;}
-    int getId() {return _id;}
-    void kill() {_bt = DEAD;}
-
-    // inherited functions
-    // virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
-    virtual void update(Boid** boids, int count);
+    const Vector2f getPos() { return _pos; }
+    const Vector2f getVel() { return _vel; }
+    const BoidType getBoidType() { return _bt; }
+    const int getId() { return _id; }
+    void kill() { _bt = DEAD; }
+    void margins();
     void draw();
 
-    // local functions
-    void margins();
-
-    ~Boid();
+    // vitual fucntions
+    virtual void update(Boid **boids, int count);
 };
-
 
 #endif
