@@ -154,5 +154,5 @@ void Boid::draw()
 
 Boid::~Boid()
 {
-    std::cout << "Deleting boid id " << _id << '\n';
+    // std::cout << "Deleting boid id " << _id << '\n';
 }
