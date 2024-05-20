@@ -1,25 +1,49 @@
-#include "PlayBoid.h"
+#include "PredBoid.h"
+#include "VMath.h"
+#include <limits>
+#include <cmath>
 
-PlayBoid::PlayBoid(int id, sf::RenderWindow *window)
-{
-    // initialise variables
-    _id = id;
-    _window = window;
-    _windowDimensions = _window->getSize();
+PredBoid::PredBoid(int id, sf::RenderWindow *window) : Boid(id, window) {
+    _bt = PREDATOR;
+    _sprite.setFillColor(sf::Color::Red);
+}
 
-    // initialise position
-    _pos.x = rand() % _windowDimensions.x;
-    _pos.y = rand() % _windowDimensions.y;
-    _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
-    _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
-    float velocity = rand() / (1.f * RAND_MAX);
-    VMath::scaleVector(&_dir, velocity * _maxVel);
+void PredBoid::update(Boid **boids, int count) {
+    Boid *closestPrey = findClosestPrey(boids, count);
+    if (closestPrey) {
+        moveToPrey(closestPrey);
+    }
 
-    // initialise boundaries
-    _mr = _windowDimensions.x - _ml;
-    _mt = _ml;
-    _mb = _windowDimensions.y - _ml;
+    // General update logic
+    Boid::update(boids, count);
+}
 
-    // give a shape
-    _sprite = sf::CircleShape(_boidSize);
+Boid *PredBoid::findClosestPrey(Boid **boids, int count) {
+    Boid *closestPrey = nullptr;
+    float minDistance = std::numeric_limits<float>::max();
+
+    for (int i = 0; i < count; ++i) {
+        Boid *prey = boids[i];
+        if (prey->getBoidType() == PREY) {
+            float distance = VMath::length(_pos - prey->getPos());
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestPrey = prey;
+            }
+        }
+    }
+    return closestPrey;
+}
+
+void PredBoid::moveToPrey(Boid *prey) {
+    Vector2f direction = prey->getPos() - _pos;
+    float length = VMath::length(direction);
+    direction /= length; // Normalize the direction
+
+    _vel += direction * _pf; // Adjust the velocity towards the prey
+
+    // Limit velocity to max velocity
+    if (VMath::length(_vel) > _maxVel) {
+        _vel = VMath::resize(_vel, _maxVel);
+    }
 }

@@ -20,6 +20,7 @@ public:
     Flock(FlockConfig, sf::RenderWindow *);
     ~Flock();
     void update();
+    void draw();
 };
 
 

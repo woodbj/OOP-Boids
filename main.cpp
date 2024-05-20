@@ -10,8 +10,8 @@ int main()
     int h = 1080;
 
     FlockConfig fc;
-    fc.preyCount = 200;
-    fc.predCount = 0;
+    fc.preyCount = 9;
+    fc.predCount = 1;
     fc.playCount = 0;
 
     sf::RenderWindow window(sf::VideoMode(w, h), "BOIDS!");
@@ -29,6 +29,7 @@ int main()
 
         window.clear();
         flock->update();
+        flock->draw();
         window.display();
     }
 
