@@ -20,6 +20,7 @@ typedef enum BoidType{
 
 class Boid
 {
+protected:    
     BoidType _bt = PREY;
     Vector2f _pos;
     Vector2f _vel;

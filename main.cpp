@@ -29,6 +29,7 @@ int main()
 
         window.clear();
         flock->update();
+        flock->draw();
         window.display();
     }
 
