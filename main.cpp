@@ -10,7 +10,7 @@ int main()
     int h = 1080;
 
     FlockConfig fc;
-    fc.preyCount = 9;
+    fc.preyCount = 100;
     fc.predCount = 1;
     fc.playCount = 0;
 
@@ -29,7 +29,6 @@ int main()
 
         window.clear();
         flock->update();
-        flock->draw();
         window.display();
     }
 

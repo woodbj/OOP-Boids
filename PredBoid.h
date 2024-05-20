@@ -15,7 +15,7 @@ class PredBoid : public Boid {
 public:
     PredBoid(int id, sf::RenderWindow *window);
 
-    void update(Boid **boids, int count) override;
+    virtual void update(Boid **boids, int count) override;
 
 private:
     Boid *findClosestPrey(Boid **boids, int count);

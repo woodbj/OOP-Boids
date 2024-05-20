@@ -22,7 +22,7 @@ typedef enum BoidType{
 class Boid
 {
 protected:    
-    BoidType _bt = PREY;
+    BoidType _bt;
     Vector2f _pos;
     Vector2f _vel;
     Vector2u _windowDimensions;
@@ -45,7 +45,7 @@ protected:
     float _cf = 0.0001f; // cohesion factor
     // Flee
     float _pr = _visualRange;
-    float _pf = 1.f;
+    float _pf = 0.001;
 
     // Margins
     float _ml = 50; // margin to turn from
@@ -67,7 +67,7 @@ public:
     // inherited functions
     // virtual void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
     virtual void update(Boid** boids, int count);
-    virtual void draw();
+    void draw();
 
     // local functions
     void margins();

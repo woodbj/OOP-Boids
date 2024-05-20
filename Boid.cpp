@@ -9,6 +9,7 @@ Boid::Boid(int id, sf::RenderWindow *window)
     _window = window;
     _windowDimensions = _window->getSize();
     dh = new DrawHelper(_window);
+    _bt = PREY;
 
     // initialise position
     _pos.x = rand() % _windowDimensions.x;
@@ -30,7 +31,8 @@ Boid::Boid(int id, sf::RenderWindow *window)
 void Boid::update(Boid **boids, int size)
 {
     // if the boid is dead don't do anything
-    if (_bt == DEAD) return;
+    if (_bt == DEAD)
+        return;
 
     Vector2f separation;
     Vector2f alignment;
@@ -87,7 +89,11 @@ void Boid::update(Boid **boids, int size)
         case PREDATOR:
             if (range < _pr)
             {
-                predator -= _pos - boids[i]->getPos();
+                predator += _pos - boids[i]->getPos();
+            }
+            if (range < _boidSize)
+            {
+                this->kill();
             }
             break;
         case DEAD:
@@ -120,9 +126,9 @@ void Boid::update(Boid **boids, int size)
     margins();
 
     // scale the vector to be within the max velocity
-    _vel += av + cv + sv;
+    _vel += av + cv + sv + pv;
     VMath::scale(&_vel, _maxVel);
-    _pos += _vel;
+    
 
     // move and draw the boid
     draw();
@@ -142,6 +148,7 @@ void Boid::margins()
 
 void Boid::draw()
 {
+    _pos += _vel;
     _sprite.setPosition(_pos);
     _window->draw(_sprite);
 }

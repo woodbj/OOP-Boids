@@ -5,6 +5,7 @@
 
 PredBoid::PredBoid(int id, sf::RenderWindow *window) : Boid(id, window) {
     _bt = PREDATOR;
+    _maxVel *= 1.1;
     _sprite.setFillColor(sf::Color::Red);
 }
 
@@ -13,9 +14,7 @@ void PredBoid::update(Boid **boids, int count) {
     if (closestPrey) {
         moveToPrey(closestPrey);
     }
-
-    // General update logic
-    Boid::update(boids, count);
+    draw();
 }
 
 Boid *PredBoid::findClosestPrey(Boid **boids, int count) {
@@ -40,7 +39,7 @@ void PredBoid::moveToPrey(Boid *prey) {
     float length = VMath::length(direction);
     direction /= length; // Normalize the direction
 
-    _vel += direction * _pf; // Adjust the velocity towards the prey
+    _vel += direction; // Adjust the velocity towards the prey
 
     // Limit velocity to max velocity
     if (VMath::length(_vel) > _maxVel) {

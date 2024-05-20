@@ -5,7 +5,7 @@ link:
 	g++ boid.o flock.o main.o vmath.o drawhelper.o pred.o -o app -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
-	rm app main.o flock.o boid.o vmath.o 
+	rm app *.o 
 
 main: main.cpp 
 	g++ -c main.cpp -o main.o
