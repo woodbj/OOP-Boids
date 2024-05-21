@@ -13,7 +13,7 @@ int main()
     fc.preyCount = 250;
     fc.predCount = 1;
     fc.playCount = 1;
-    
+
     sf::RenderWindow window(sf::VideoMode(w, h), "BOIDS!");
     Flock *flock = new Flock(fc, &window);
     sf::Event event;

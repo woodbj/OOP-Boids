@@ -1,8 +1,6 @@
 #include "PlayBoid.h"
 
 PlayBoid::PlayBoid(int id, sf::RenderWindow *window) : PredBoid(id, window) {
-    _bt = PREDATOR;
-    _maxVel *= 1.1;
     _sprite.setFillColor(sf::Color::Blue);
 }
 
