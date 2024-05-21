@@ -16,11 +16,13 @@ public:
     PredBoid(int id, sf::RenderWindow *window);
 
     virtual void update(Boid **boids, int count) override;
+    int getKillCount() const { return score; }//add score
 
 private:
     Boid *findClosestPrey(Boid **boids, int count);
     void moveToPrey(Boid *prey);
     virtual ~PredBoid() override;
+    int score;//add score
 };
 
 
