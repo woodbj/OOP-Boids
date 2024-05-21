@@ -5,11 +5,12 @@
 #include <SFML/System/Vector2.hpp>
 using sf::Vector2f;
 
-namespace VMath
+class VMath
 {
-    float length(Vector2f vector);
-    void scale(Vector2f *vector, float scale);
-    Vector2f resize(Vector2f vector, float length);
+    public:
+    static float length(Vector2f vector);
+    static void scale(Vector2f *vector, float scale);
+    static Vector2f resize(Vector2f vector, float length);
 
 };
 
