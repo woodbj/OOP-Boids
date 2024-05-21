@@ -15,36 +15,15 @@ using sf::Vector2u;
 class PlayBoid : public PredBoid
 {
 private:
-    BoidType _bt = PREDATOR;
-    Vector2f _pos;
-    Vector2f _dir;
-    Vector2u _windowDimensions;
-    sf::CircleShape _sprite;
+    int player1;
+    sf::CircleShape player;
     sf::RenderWindow *_window;
-    int _id;
-    float _maxVel = 3;
-    float _boidSize = 5;
-
-    // Margins
-    float _ml = 100; // margin to turn from
-    float _mr;
-    float _mt;
-    float _mb;
-    float _tf = 0.2; // turn factor
-
-    void constrainPosition();
 
 public:
-    PlayBoid(int, sf::RenderWindow *);
-
-    // virtuals
-    Vector2f getPos() { return _pos; }
-    Vector2f getVel() { return _dir; }
-    BoidType getBoidType() {return _bt;}
-    void update(Vector2f *distances, Vector2f *velocities, BoidType *bt,  int count);
-    void draw();
-
-    // others
+    // sf::CircleShape get_player();
+    sf::CircleShape set_player(sf::CircleShape player);
+    PlayBoid(int id, sf::RenderWindow *window);
+    void update(sf::CircleShape player, sf::RenderWindow *_window);
 };
 
 #endif

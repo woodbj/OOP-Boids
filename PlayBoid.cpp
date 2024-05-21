@@ -1,25 +1,35 @@
 #include "PlayBoid.h"
 
-PlayBoid::PlayBoid(int id, sf::RenderWindow *window)
+PlayBoid::PlayBoid(int id, sf::RenderWindow *window) : PredBoid(id, window) {
+    _bt = PREDATOR;
+    _maxVel *= 1.1;
+    _sprite.setFillColor(sf::Color::Blue);
+}
+
+sf::CircleShape PlayBoid::set_player(sf::CircleShape player)
 {
-    // initialise variables
-    _id = id;
-    _window = window;
-    _windowDimensions = _window->getSize();
+    sf::CircleShape _player(100.f);
+    _player.setFillColor(sf::Color(255, 0, 0));
+    player = _player;
+}
 
-    // initialise position
-    _pos.x = rand() % _windowDimensions.x;
-    _pos.y = rand() % _windowDimensions.y;
-    _dir.x = 2 * (rand() / (1.f * RAND_MAX)) - 1;
-    _dir.y = 2 * (rand() / (1.f * RAND_MAX)) - 1;
-    float velocity = rand() / (1.f * RAND_MAX);
-    VMath::scale(&_dir, velocity * _maxVel);
+void PlayBoid::update(sf::CircleShape player, sf::RenderWindow *_window)
+{
 
-    // initialise boundaries
-    _mr = _windowDimensions.x - _ml;
-    _mt = _ml;
-    _mb = _windowDimensions.y - _ml;
-
-    // give a shape
-    _sprite = sf::CircleShape(_boidSize);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        player.move(0.f, -0.2f);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        player.move(-0.2f, 0.f);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        player.move(0.f, 0.2f);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        player.move(0.2f, 0.f);
+    }
 }

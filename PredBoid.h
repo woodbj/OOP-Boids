@@ -18,7 +18,7 @@ public:
     virtual void update(Boid **boids, int count) override;
     int getKillCount() const { return score; }//add score
 
-private:
+protected:
     Boid *findClosestPrey(Boid **boids, int count);
     void moveToPrey(Boid *prey);
     virtual ~PredBoid() override;
