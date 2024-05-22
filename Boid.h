@@ -31,7 +31,7 @@ protected:
     sf::RenderWindow *_window;
     DrawHelper *dh;
     int _id;
-    float _maxVel = 1;
+    float _maxVel = 2;
     float _boidSize = 5;
     float _visualRange = 200.f;
     float _personalSpace = 25;

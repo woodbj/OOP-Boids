@@ -6,6 +6,7 @@
 PredBoid::PredBoid(int id, sf::RenderWindow *window) : Boid(id, window), score(0) {
     _bt = PREDATOR;
     _maxVel *= 1.1;
+    _boidSize = 10;
     _sprite.setFillColor(sf::Color::Red);
 }
 
