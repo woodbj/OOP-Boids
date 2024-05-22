@@ -12,10 +12,11 @@
 #include "Boid.h"
 #include "PredBoid.h" 
 
-class Controller{
+class Controller 
+{
 public:
     Controller();
-    sf::Vector2f steer();
+    std::vector <float> steer();
     
 private:
     
