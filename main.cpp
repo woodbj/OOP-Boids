@@ -6,11 +6,11 @@
 
 int main()
 {
-    int w = 1920;
-    int h = 1080;
+    int w = 500;
+    int h = 500;
 
     FlockConfig fc;
-    fc.preyCount = 250;
+    fc.preyCount = 100;
     fc.predCount = 1;
     fc.playCount = 1;
 

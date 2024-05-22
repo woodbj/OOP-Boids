@@ -1,8 +1,8 @@
-all: main boid flock vmath drawhelper pred link 
+all: main play boid flock vmath drawhelper pred link 
 	./app
 
 link:
-	g++ boid.o flock.o main.o vmath.o drawhelper.o pred.o -o app -lsfml-graphics -lsfml-window -lsfml-system
+	g++ play.o boid.o flock.o main.o vmath.o drawhelper.o pred.o -o app -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
 	rm app *.o 
@@ -15,6 +15,9 @@ flock: Flock.cpp
 
 pred: PredBoid.cpp
 	g++ -c PredBoid.cpp -o pred.o
+
+play: PlayBoid.cpp
+	g++ -c PlayBoid.cpp -o play.o
 
 boid: Boid.cpp 
 	g++ -c Boid.cpp -o boid.o

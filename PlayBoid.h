@@ -15,16 +15,11 @@ using sf::Vector2u;
 
 class PlayBoid : public PredBoid
 {
-private:
-    int player1;
-    sf::CircleShape player;
-    sf::RenderWindow *_window;
-
+private: 
+    // add controller
 public:
-    // sf::CircleShape get_player();
-    sf::CircleShape set_player(sf::CircleShape player);
     PlayBoid(int id, sf::RenderWindow *window);
-    void update(sf::CircleShape player, sf::RenderWindow *_window);
+    virtual void update(Boid **boids, int count) override;
 };
 
 #endif
