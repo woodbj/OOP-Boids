@@ -6,7 +6,7 @@
 #include <vector>
 
 
-class Keyboard
+class Keyboard : public Controller
 {
 
 public:

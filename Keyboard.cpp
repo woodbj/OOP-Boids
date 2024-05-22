@@ -14,7 +14,6 @@ std::vector <float> Keyboard::steer(){
 
         a.push_back(0.f);
 
-        a = {-0.2f,0.f};
         return a;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))

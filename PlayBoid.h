@@ -18,7 +18,7 @@ class PlayBoid : public PredBoid
 {
 private: 
     // add controller
-    Keyboard * c ;
+    Controller * c ;
     int score;
 public:
     PlayBoid();

@@ -16,7 +16,7 @@ class Controller
 {
 public:
     Controller();
-    std::vector <float> steer();
+    virtual std::vector <float> steer();
     
 private:
     
