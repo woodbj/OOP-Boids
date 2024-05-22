@@ -17,13 +17,13 @@ int main()
     fc.predCount = 1;
     fc.playCount = 1;
     
-
     sf::RenderWindow window(sf::VideoMode(w, h), "BOIDS!");
     Flock *flock = new Flock(fc, &window);
     sf::Event event;
     
     while (window.isOpen())
     {
+        window.setFramerateLimit(60);
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

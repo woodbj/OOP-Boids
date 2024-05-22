@@ -23,7 +23,7 @@ private:
 public:
     PlayBoid();
     PlayBoid(int id, sf::RenderWindow *window);
-    virtual void update(Boid **boids, int count) override;
+    void update(Boid **boids, int count) override;
     int getKill() const {return score;}
 };
 #endif
