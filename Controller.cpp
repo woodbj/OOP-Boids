@@ -1,3 +1,3 @@
 #include "Controller.h"
 
-sf::Vector2f Controller::steer(){}
+sf::Vector2f Controller::steer(){0;}

@@ -2,9 +2,8 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "PredBoid.h" 
-#include "PlayBoid.h"
-class Controller : public PlayBoid
+#include <SFML/System/Vector2.hpp>
+class Controller 
 {
 public:
     virtual sf::Vector2f steer();
