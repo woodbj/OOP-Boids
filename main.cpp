@@ -6,8 +6,8 @@
 
 int main()
 {
-    int w = 500;
-    int h = 500;
+    int w = 1000;
+    int h = 1000;
 
     FlockConfig fc;
     fc.preyCount = 100;
