@@ -11,8 +11,10 @@ void PlayBoid::update(Boid **boids, int count)
     // update _vel direction based on controller input
 
     
-        sf::Vector2f a = c->steer();
-    _sprite.move(a);
+    //     sf::Vector2f a = c->steer();
+    // _sprite.move(a);
+
+    _vel = c->steer();
     // kill any boids within the kill radius (see PredBoid for how this is done)
 
     margins();
