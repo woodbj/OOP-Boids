@@ -9,8 +9,11 @@
 
 #include "Keyboard.h"
 #include "PlayBoid.h"
+#include "Flock.h"
+#include "Boid.h"
+#include "PredBoid.h" 
 
-class Controller : public Keyboard{
+class Controller : public PlayBoid{
 public:
     Controller();
     void handleInput();
