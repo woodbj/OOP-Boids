@@ -2,12 +2,15 @@
 #define KEYBOARD_H
 
 #include <SFML/Window/Keyboard.hpp>
-#include"Controller.h"
-#include<vector>
+#include "Controller.h"
+#include <vector>
 
-class Keyboard : public Controller {
+
+class Keyboard
+{
+
 public:
-    std::vector <float> steer();
+    std::vector<float> steer();
 };
 
 #endif // KEYBOARD_H
