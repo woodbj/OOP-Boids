@@ -6,7 +6,7 @@
 class Controller 
 {
 public:
-    virtual sf::Vector2f steer(){} = 0;
+    virtual sf::Vector2f steer() = 0;
     
 private:
     
