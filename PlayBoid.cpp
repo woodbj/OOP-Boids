@@ -26,4 +26,5 @@ void PlayBoid::update(Boid **boids, int count)
         closestPrey->kill();
         score++;
     }
+    
 }
