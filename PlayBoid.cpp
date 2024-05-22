@@ -15,8 +15,8 @@ void PlayBoid::update(Boid **boids, int count)
             closestPrey -> kill();
             score++;
 
-    std::vector <float> a = c->steer();
-    _sprite.move(a[0],a[1]);
+    sf::Vector2f a = c->steer();
+    _sprite.move(a);
     margins();
     draw();
 }

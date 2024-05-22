@@ -1,33 +1,28 @@
 #include "Keyboard.h"
 
-std::vector <float> Keyboard::steer(){
-    std::vector <float> a;   a.resize(0);
+
+sf::Vector2f Keyboard::steer(){
+    sf::Vector2f force(0, 0);
+
+std::vector<sf::Vector2f> a;   a.resize(0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        a.push_back(0.2f);
-        a.push_back(0.f);
-        return a;
+            force += sf::Vector2f(-1, 0);
+        return force;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        a.push_back(-0.2f);
-
-        a.push_back(0.f);
-
-        return a;
+            force += sf::Vector2f(1, 0);
+        return force;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        a.push_back(0.f);
-        a.push_back(-0.2f);
-
-        return a;}
+            force += sf::Vector2f(0, -1);
+        return force;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        a.push_back(0.f);
-        a.push_back(0.2f);
-
-
-        return a;
+            force += sf::Vector2f(0, 1);
+        return force;
     }
-}
+};

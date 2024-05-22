@@ -11,6 +11,7 @@
 #include "VMath.h"
 #include "Controller.h"
 #include "Keyboard.h"
+
 using sf::Vector2f;
 using sf::Vector2u;
 

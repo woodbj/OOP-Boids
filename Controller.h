@@ -7,7 +7,7 @@
 class Controller 
 {
 public:
-    virtual std::vector <float> steer();
+    virtual sf::Vector2f steer();
     
 private:
     
