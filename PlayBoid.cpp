@@ -4,21 +4,17 @@ PlayBoid::PlayBoid(int id, sf::RenderWindow *window) : PredBoid(id, window), sco
 {
     _sprite.setFillColor(sf::Color::Blue);
     c = new Keyboard;
-    _maxVel *= 1.5f;
+    _maxVel *= 1.2f;
 }
 
 void PlayBoid::update(Boid **boids, int count)
 {
     // update _vel direction based on controller input
 
-    //     sf::Vector2f a = c->steer();
-    // _sprite.move(a);
-
     _vel = c->steer();
+    _vel = VMath::resize(_vel, _maxVel);
     // kill any boids within the kill radius (see PredBoid for how this is done)
 
-    margins();
-    draw();
     Boid *closestPrey = findClosestPrey(boids, count);
     float range = VMath::length(_pos - closestPrey->getPos());
     if (range < _boidSize)
@@ -26,4 +22,7 @@ void PlayBoid::update(Boid **boids, int count)
         closestPrey->kill();
         score++;
     }
+
+    margins();
+    draw();
 }
