@@ -2,11 +2,11 @@
 #define KEYBOARD_H
 
 #include <SFML/Window/Keyboard.hpp>
-
-class Keyboard {
+#include"Controller.h"
+class Keyboard :public Controller{
 public:
     static bool isKeyPressed(sf::Keyboard::Key key);
-    virtual int steer();
+    sf::Vector2f steer();
 };
 
 #endif // KEYBOARD_H

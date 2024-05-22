@@ -10,6 +10,7 @@
 #include "PredBoid.h"
 #include "VMath.h"
 #include "Controller.h"
+#include "Keyboard.h"
 using sf::Vector2f;
 using sf::Vector2u;
 
@@ -17,7 +18,7 @@ class PlayBoid : public PredBoid
 {
 private: 
     // add controller
-    // Controller c;
+    Keyboard * c ;
     int score;
 public:
     PlayBoid();

@@ -7,16 +7,15 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "Keyboard.h"
 #include "PlayBoid.h"
 #include "Flock.h"
 #include "Boid.h"
 #include "PredBoid.h" 
 
-class Controller : public PlayBoid{
+class Controller{
 public:
     Controller();
-    void handleInput();
+    sf::Vector2f steer();
     
 private:
     
