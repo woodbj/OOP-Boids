@@ -6,7 +6,6 @@
 #include <iostream>
 #include <ctime>
 #include <cmath>
-#include "Boid.h"
 #include "PredBoid.h"
 #include "VMath.h"
 #include "Controller.h"

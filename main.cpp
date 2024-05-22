@@ -2,6 +2,9 @@
 #include "Boid.h"
 #include "Flock.h"
 #include"PlayBoid.h"
+#include"PredBoid.h"
+#include"Controller.h"
+#include"Keyboard.h"
 #include <iostream>
 
 int main()
@@ -13,9 +16,7 @@ int main()
     fc.preyCount = 100;
     fc.predCount = 1;
     fc.playCount = 1;
-     PlayBoid boid;
-    Keyboard keyboardController;
-
+    
 
     sf::RenderWindow window(sf::VideoMode(w, h), "BOIDS!");
     Flock *flock = new Flock(fc, &window);
@@ -30,8 +31,6 @@ int main()
         }
         window.clear();
         flock->update();
-        sf::Vector2f force = keyboardController.steer();
-        boid.draw();
         window.display();
     }
 

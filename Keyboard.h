@@ -3,8 +3,7 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include "Controller.h"
-#include <vector>
-#include"PlayBoid.h"
+
 
 class Keyboard : public Controller
 {

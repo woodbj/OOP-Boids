@@ -8,15 +8,15 @@ PlayBoid::PlayBoid(int id, sf::RenderWindow *window) : PredBoid(id, window), sco
 void PlayBoid::update(Boid **boids, int count)
 {
     // update _vel direction based on controller input
+    sf::Vector2f a = c->steer();
+    _sprite.move(a);
+    
     // kill any boids within the kill radius (see PredBoid for how this is done)
     Boid *closestPrey = findClosestPrey(boids, count);
     float range = VMath::length(_pos - closestPrey->getPos());
         if (range < _boidSize){
             closestPrey -> kill();
             score++;
-
-    sf::Vector2f a = c->steer();
-    _sprite.move(a);
     margins();
     draw();
 }
