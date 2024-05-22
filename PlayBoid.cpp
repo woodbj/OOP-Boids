@@ -1,4 +1,3 @@
-//working
 #include "PlayBoid.h"
 
 PlayBoid::PlayBoid(int id, sf::RenderWindow *window) : PredBoid(id, window) {
