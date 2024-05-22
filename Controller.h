@@ -3,8 +3,8 @@
 #define CONTROLLER_H
 
 #include "PredBoid.h" 
-
-class Controller 
+#include "PlayBoid.h"
+class Controller : public PlayBoid
 {
 public:
     virtual sf::Vector2f steer();
