@@ -12,6 +12,18 @@ void PlayBoid::update(Boid **boids, int count)
     {
         _sprite.move(0.f,-0.2f);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        _sprite.move(0.f,0.2f);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        _sprite.move(0.2f,0.f);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        _sprite.move(-0.2f,0.f);
+    }
     
     Boid *closestPrey = findClosestPrey(boids, count);
     float range = VMath::length(_pos - closestPrey->getPos());
